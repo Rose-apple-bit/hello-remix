@@ -1,6 +1,34 @@
-# Welcome to Remix!
+<!-- @format -->
 
-- [Remix Docs](https://remix.run/docs)
+# Hello Remix + Plasmic!
+
+Check out:
+
+- The mention in the accompanying [blog article](https://twitter.com/yaaang/status/1466857426578198534)
+- [Live site running on Vercel](https://hello-remix-plasmic.vercel.app/)
+- [Official Plasmic quickstart for Remix apps](https://docs.plasmic.app/learn/remix-quickstart/)
+
+## How does it work?
+
+The key is in this snippet of code in app/routes/index.tsx:
+
+```tsx
+export let loader: LoaderFunction = async () => {
+  // Load the design from Plasmic. This happens server-side.
+  const plasmicData = await PLASMIC.fetchComponentData("/");
+  return json(plasmicData);
+};
+
+export default function Index() {
+  // Render the Plasmic design.
+  const plasmicData = useLoaderData();
+  return (
+    <PlasmicRootProvider loader={PLASMIC} prefetchedData={plasmicData}>
+      <PlasmicComponent component="Homepage" />
+    </PlasmicRootProvider>
+  );
+}
+```
 
 ## Deployment
 
